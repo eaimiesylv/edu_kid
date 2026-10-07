@@ -1,0 +1,71 @@
+@media (max-width: 950px) {
+  .app-shell { padding: 0 25px; }
+  .welcome-layout { padding: 40px 25px; gap: 30px; }
+  .welcome-sidebar { padding: 25px; }
+  .welcome-sidebar h2 { font-size: 29px; }
+  .story-logo > span:not(.logo-star) { font-size: 65px; }
+  .story-logo strong { font-size: 70px; }
+  .welcome-content > .mascot { width: 185px; height: 205px; }
+  .preview-letters { gap: 8px; }
+  .preview-letters span { width: 54px; height: 65px; font-size: 37px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 650px) {
+  .app-shell { padding: 0 12px; }
+  .site-header { height: 75px; padding: 0 6px; }
+  .brand { font-size: 22px; gap: 5px; }
+  .brand small { font-size: 7px; letter-spacing: 1.5px; }
+  .brand-bird { font-size: 30px; }
+  .parent-button { font-size: 11px; padding: 10px 12px; }
+  .welcome-layout { display: flex; justify-content: center; padding: 42px 20px 25px; min-height: 650px; border-radius: 22px; background-position: 50% 50%; }
+  .welcome-sidebar { display: none; }
+  .welcome-content { width: 100%; }
+  .story-logo > span:not(.logo-star) { font-size: 76px; }
+  .story-logo strong { font-size: 80px; }
+  .welcome-content > .mascot { width: 215px; height: 220px; margin: 25px 0; }
+  .welcome-start { width: 100%; font-size: 20px; }
+  .returning-welcome { padding: 25px 18px; }
+  .returning-welcome h1 { font-size: 25px; }
+  .returning-avatar { font-size: 115px; }
+  .site-footer { font-size: 10px; padding: 20px 8px; }
+  .setup-page { margin-top: 8px; }
+  .setup-form { padding: 64px 23px 30px; border-radius: 22px; min-height: 610px; }
+  .setup-form h2 { font-size: 24px; }
+  .subject-screen { padding-left: 18px; padding-right: 18px; }
+  .subject-tile { width: 57px; height: 59px; font-size: 25px; }
+  .subject-description strong { font-size: 17px; }
+  .subject-description small { font-size: 10px; }
+  .subject-option { gap: 12px; padding: 11px 0; }
+  .subject-screen > .button { margin-top: 20px; }
+  .range-panel { padding: 20px 15px; }
+  .range-heading { gap: 14px; }
+  .range-heading h2 { font-size: 26px; }
+  .avatar-picker button { width: 60px; height: 60px; font-size: 42px; }
+  .session-page { padding: 20px 15px; margin-top: 6px; min-height: 650px; }
+  .session-top .text-button { font-size: 11px; }
+  .session-dots { gap: 3px; }
+  .session-dots i { width: 6px; height: 6px; }
+  .star-count { padding: 6px 9px; font-size: 13px; }
+  .activity-heading h2 { font-size: 24px; }
+  .audio-button { width: 48px; height: 48px; margin-left: 8px; }
+  .concept-intro { height: 295px; }
+  .concept-intro > span { font-size: 245px; }
+  .button { padding: 16px 23px; font-size: 16px; }
+  .writing-buttons { gap: 10px; }
+  .writing-buttons .button { font-size: 14px; padding: 14px 18px; }
+  .narrator-bubble > span { padding: 13px 15px; font-size: 13px; }
+  .narrator-bubble .mascot { width: 60px; height: 65px; }
+  .celebration { margin: -20px -15px; padding: 25px 15px; }
+  .celebration .button { min-width: 260px; }
+  .reward-stars { font-size: 65px; }
+  .dashboard-heading { display: block; padding: 0 9px; }
+  .dashboard-heading h1 { font-size: 29px; }
+  .concept-progress { gap: 38px; padding: 25px 5px; }
+  .concept-progress button:not(:last-child)::after { right: -31px; font-size: 27px; }
+  .concept-progress span { width: 56px; height: 56px; }
+  .panel { padding: 24px; }
+  .modal { padding: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

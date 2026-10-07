@@ -1,0 +1,44 @@
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #131278;
+  background: #f0f9ff;
+  font-synthesis: none;
+  --purple: #4930ff;
+  --pink: #ff3f70;
+  --muted: #5365a4;
+  --line: #e3e8fb;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: radial-gradient(ellipse at top, #fff 30%, #e9f8ff 100%); }
+button, input, select { font: inherit; }
+button { cursor: pointer; border: 0; }
+button:disabled { opacity: .6; cursor: default; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #ffbf12; outline-offset: 4px; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spacing: -.025em; }
+h1 { font-size: clamp(32px, 4vw, 52px); line-height: 1.15; }
+h2 { font-size: 29px; }
+h3 { font-size: 20px; }
+p { line-height: 1.65; }
+.app-shell { max-width: 1250px; padding: 0 36px; margin: auto; min-height: 100vh; }
+.site-header { height: 96px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 10px; background: none; color: #3122b9; font: 700 28px 'Outfit'; text-align: left; }
+.brand-light { color: #fcb720; }
+.brand small { display: block; color: #5365a4; font: 700 9px 'DM Sans'; letter-spacing: 2px; margin-top: 4px; }
+.brand-bird { font-size: 39px; }
+.parent-button { border: 1px solid #dce0f8; border-radius: 25px; padding: 12px 19px; color: #3d31b1; background: #fff; font-weight: 600; box-shadow: 0 3px 0 #e4e7f7; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 16px; border-radius: 28px; font-size: 17px; font-weight: 700; padding: 17px 28px; min-height: 56px; transition: transform .18s; }
+.button:hover { transform: translateY(-2px); }
+.primary { background: linear-gradient(175deg, #8c78ff 0%, #5038ff 38%, #4323f8 100%); color: #fff; box-shadow: inset 0 2px 2px #ffffff72, 0 5px 0 #3521c9, 0 8px 16px #4b30fa22; }
+.secondary { background: #f2f2ff; color: #4031cb; border: 1px solid #dcdefa; box-shadow: 0 3px 0 #e3e4f5; }
+.text-button { background: none; color: #3224c3; font-weight: 600; font-size: 14px; padding: 10px 0; }
+.eyebrow { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1.3px; color: #6556be; }
+.muted { color: var(--muted); font-size: 13px; }
+.error { color: #a42145; background: #ffecf1; padding: 12px; border-radius: 12px; font-size: 13px; }
+.site-footer { display: flex; justify-content: space-between; gap: 15px; padding: 24px 0; font-size: 12px; color: #6573ac; }
+.mascot { width: 130px; object-fit: contain; filter: drop-shadow(0 6px 5px #23519a15); }
+.illustrated-world { background: #71d5ff url('/art/woodland.png') center center / cover no-repeat; }
+.info-note { background: #eef4ff; color: #2442ab; font-size: 13px; padding: 15px; border-radius: 13px; }
+.back-circle { display: grid; place-items: center; width: 39px; height: 39px; border-radius: 50%; background: #eeeaff; color: #3827e9; font-size: 25px; z-index: 2; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }

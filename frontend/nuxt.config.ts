@@ -1,0 +1,23 @@
+export default defineNuxtConfig({
+  compatibilityDate: '2026-10-05',
+  ssr: false,
+  devtools: { enabled: false },
+  modules: ['@vite-pwa/nuxt'],
+  css: ['~/assets/main.css', '~/assets/styles/base.css', '~/assets/styles/welcome.css',
+    '~/assets/styles/onboarding.css', '~/assets/styles/learning.css',
+    '~/assets/styles/parent.css', '~/assets/styles/responsive.css', '~/assets/styles/lesson.css'],
+  runtimeConfig: { public: { apiBase: 'http://127.0.0.1:8000/api' } },
+  app: { head: { title: 'Bright Steps · Little steps, big discoveries',
+    meta: [{ name: 'theme-color', content: '#f7f4ed' }] } },
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: { name: 'Bright Steps', short_name: 'Bright Steps',
+      description: 'A little learning adventure, one bright step at a time.',
+      theme_color: '#f7f4ed', background_color: '#f7f4ed', display: 'standalone',
+      icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }] },
+    workbox: { navigateFallback: '/', additionalManifestEntries: [{ url: '/', revision: new Date().toISOString() }],
+      globPatterns: ['**/*.{js,css,html,svg,json,png,woff2}'] },
+    devOptions: { enabled: false },
+  },
+})

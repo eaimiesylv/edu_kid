@@ -1,0 +1,46 @@
+.session-page { position: relative; }
+.lesson-title { font: 700 26px 'Outfit', sans-serif; margin: 14px 0 5px; }
+.lesson-title small { display: block; font: 500 14px 'DM Sans', sans-serif; margin-top: 6px; color: #5463a6; }
+.lesson-navigation { margin-top: 24px; padding-top: 22px; border-top: 1px solid #dceaff; }
+.lesson-step-list { display: flex; overflow-x: auto; gap: 8px; padding: 8px 3px 14px; }
+.lesson-step-list button { flex: 0 0 82px; background: #f2f6ff; color: #283389; border: 2px solid transparent; border-radius: 14px; padding: 9px 4px; }
+.lesson-step-list button[aria-current="step"] { border-color: #674aff; background: #ebe6ff; }
+.lesson-step-list span { display: grid; place-items: center; background: #fff; border-radius: 50%; width: 28px; height: 28px; margin: 0 auto 6px; font-weight: 700; }
+.lesson-step-list small { display: block; font-size: 10px; line-height: 1.3; }
+.learning-environment { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; gap: 12px; }
+.learning-stage { min-width: 0; }
+.learning-stage .game-host { aspect-ratio: 9 / 5; }
+.lesson-arrow { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border-radius: 50%; font-size: 27px; font-weight: 700; color: #fff; background: linear-gradient(#8971ff, #4930ff); box-shadow: 0 4px 0 #3020a9; }
+.lesson-arrow:disabled { opacity: .4; cursor: default; }
+.lesson-position { font-size: 12px; text-align: center; }
+.navigation-note { text-align: center; color: #6474a8; font-size: 11px; }
+.completed-step-note { text-align: center; color: #13835f; font-size: 12px; }
+.stroke-legend { display: flex; justify-content: center; gap: 20px; margin: 12px 0; }
+.stroke-legend > span { display: flex; align-items: center; gap: 7px; color: #ff3f70; font-weight: 700; }
+.stroke-legend small { font-size: 11px; color: #56618a; }
+.game-pause { display: block; margin: 0 0 12px auto; padding: 8px 14px; min-height: 34px; font-size: 12px; }
+.mixed-review .accessible-options { gap: 20px; padding: 20px; border-radius: 22px; background: #fff7d5; }
+.mixed-review .accessible-options button { width: 100px; height: 100px; font-size: 60px; }
+.success-splash { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; background: #20349835; pointer-events: none; }
+.success-burst { position: relative; display: flex; flex-direction: column; align-items: center; width: 280px; padding: 26px; border: 3px solid #fff; border-radius: 32px; background: linear-gradient(#efffff, #fff3bc); box-shadow: 0 15px 80px #29338c40; animation: success-pop .45s both; }
+.success-burst .mascot { width: 130px; height: 130px; }
+.success-burst strong { color: #3420d6; font: 700 38px 'Outfit', sans-serif; }
+.success-burst > span:not(.confetti-star) { font-weight: 700; margin-top: 6px; }
+.confetti-star { position: absolute; top: 50%; left: 50%; color: #ffc716; font-size: 25px; text-shadow: 0 2px #e79800; animation: star-burst 1.5s ease-out both; --angle: calc(var(--i) * 26deg); }
+.reward-stars { animation: reward-glow 1.4s ease-in-out infinite alternate; }
+.celebration .button { margin: 8px auto; }
+.concept-step-controls { display: flex; justify-content: space-between; align-items: center; margin: -10px 0 20px; font-size: 13px; }
+.concept-step-controls .back-circle { position: static; }
+@keyframes success-pop { from { opacity: 0; transform: scale(.5) rotate(-8deg); } to { opacity: 1; transform: scale(1); } }
+@keyframes star-burst { from { opacity: 1; transform: rotate(var(--angle)) translateX(30px); } to { opacity: 0; transform: rotate(var(--angle)) translateX(220px) rotate(180deg); } }
+@keyframes reward-glow { to { transform: scale(1.07); filter: drop-shadow(0 0 14px #ffd33a); } }
+@media (max-width: 650px) {
+  .learning-environment { grid-template-columns: 36px minmax(0, 1fr) 36px; gap: 5px; }
+  .lesson-arrow { width: 36px; height: 44px; font-size: 23px; }
+  .learning-stage .writing-canvas { width: 100%; height: auto; }
+  .learning-stage .concept-intro > span { font-size: clamp(90px, 32vw, 180px); }
+  .mixed-review .accessible-options { padding: 12px; gap: 10px; }
+  .mixed-review .accessible-options button { width: 72px; height: 80px; font-size: 45px; }
+  .stroke-legend { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .success-burst, .confetti-star, .reward-stars { animation: none; } .confetti-star { display: none; } }

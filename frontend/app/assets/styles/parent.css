@@ -1,0 +1,32 @@
+.dashboard { padding: 26px 0; }
+.dashboard-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.dashboard-heading h1 { font-size: 37px; margin: 15px 0 10px; }
+.dashboard-heading p { color: var(--muted); font-size: 14px; }
+.concept-progress { display: flex; justify-content: center; gap: 70px; padding: 32px 15px; margin: 15px 0; background: white; border: 1px solid #e0e6fa; border-radius: 23px; }
+.concept-progress button { position: relative; background: none; color: #15147b; }
+.concept-progress button:not(:last-child)::after { content: '→'; position: absolute; font-size: 38px; color: #d8def0; top: 10px; right: -48px; }
+.concept-progress span { display: grid; place-items: center; background: linear-gradient(#65eaba, #03c37b); color: white; width: 67px; height: 67px; border-radius: 15px; font: 700 38px Arial; box-shadow: 0 4px 0 #02a367; margin: auto; }
+.concept-progress button:nth-child(2) span { background: linear-gradient(#ffd843, #ffb900); box-shadow: 0 4px 0 #d79a00; }
+.concept-progress .untouched span { background: #e8eaf1; color: #9da5c4; box-shadow: 0 4px 0 #d8dce9; }
+.concept-progress .active span { outline: 3px solid #a995ff; outline-offset: 5px; }
+.concept-progress small { display: block; margin-top: 13px; font-size: 12px; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 25px; margin: 25px 0; }
+.panel { background: #fff; padding: 30px; border: 1px solid #dfe5fa; border-radius: 22px; }
+.panel h2 { margin: 13px 0 22px; font-size: 26px; }
+.panel > p { font-size: 13px; color: var(--muted); }
+.skill-row { margin: 21px 0; }
+.skill-row > div:first-child { display: flex; justify-content: space-between; font-size: 13px; gap: 15px; }
+.skill-row strong { font-weight: 600; }
+.skill-row span { color: #5c66a3; }
+.skill-track { height: 9px; background: #eeeef6; border-radius: 8px; overflow: hidden; margin: 9px 0 7px; }
+.skill-track i { display: block; height: 100%; background: #22d78f; border-radius: 8px; }
+.skill-row:nth-child(3n) .skill-track i { background: #28c7ff; }
+.skill-row:nth-child(4n) .skill-track i { background: #ffbc13; }
+.skill-row small { font-size: 10px; color: #828db4; }
+.practice-note { background: #f2efff; padding: 15px; border-radius: 12px; }
+.modal-backdrop { position: fixed; inset: 0; display: grid; place-items: center; padding: 20px; background: #13115b65; backdrop-filter: blur(5px); z-index: 100; }
+.modal { position: relative; background: #fff; width: 100%; max-width: 430px; padding: 36px; border: 2px solid #dad5ff; border-radius: 25px; }
+.modal h2 { margin-top: 18px; }
+.modal p { color: #5965a6; font-size: 14px; }
+.modal .button { width: 100%; }
+.close-button { position: absolute; top: 12px; right: 17px; font-size: 30px; background: none; color: #6454bc; }

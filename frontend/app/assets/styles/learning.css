@@ -1,0 +1,33 @@
+.session-page { position: relative; max-width: 920px; margin: 12px auto 35px; padding: 24px 38px 30px; text-align: center; border: 2px solid #d7eeff; border-radius: 25px; background: linear-gradient(#fff 30%, #fffdf0); min-height: 680px; overflow: hidden; }
+.session-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.session-dots { display: flex; gap: 6px; }
+.session-dots i { height: 9px; width: 9px; border-radius: 50%; background: #e4e4f9; }
+.session-dots .filled { background: #6944ff; }
+.star-count { background: #fff3b6; color: #b27a00; border-radius: 20px; padding: 8px 14px; font-size: 17px; font-weight: 700; }
+.activity-heading { margin: 24px 0 12px; }
+.activity-heading h2 { display: inline-block; font-size: 29px; margin: 10px 0; }
+.audio-button { margin-left: 15px; width: 58px; height: 58px; color: #fff; background: linear-gradient(#279fff, #0052ff); border: 3px solid white; box-shadow: 0 3px 0 #0041cb; border-radius: 50%; font-size: 27px; }
+.concept-intro { height: 320px; display: grid; place-items: center; background: linear-gradient(#fff6e8, #fff); border-radius: 22px; margin: 20px auto; max-width: 430px; position: relative; }
+.concept-intro > span { font: 700 275px Arial, sans-serif; color: #ff4475; text-shadow: 0 5px 0 #da214e, 3px -3px 0 #ff9cba, 0 8px 10px #fc597533; }
+.concept-intro > .mascot { display: none; }
+.next-button { display: flex; min-width: 270px; margin: 23px auto 8px; }
+.narrator-bubble { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 23px; }
+.narrator-bubble .mascot { width: 75px; height: 75px; }
+.narrator-bubble > span { background: white; border: 1px solid #e6e8f5; border-radius: 25px; padding: 15px 22px; box-shadow: 0 3px 0 #e2e7ee; font-size: 16px; font-weight: 600; }
+.writing-canvas { width: min(350px, 100%); aspect-ratio: 1; background: linear-gradient(#fff9eb, #fff); border: 1px solid #eee9da; border-radius: 22px; touch-action: none; }
+.writing-buttons { display: flex; justify-content: center; gap: 15px; margin: 14px auto; }
+.writing-reference { display: flex; justify-content: center; align-items: center; gap: 25px; }
+.writing-reference > span { color: #ff4273; font: 700 65px Arial; }
+.activity-message { color: #3625be; font-size: 16px; margin: 17px 0; }
+.game-host { width: 100%; max-width: 720px; margin: auto; overflow: hidden; border-radius: 22px; border: 2px solid #9de4ff; }
+.game-host canvas { display: block; }
+.accessible-options { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+.accessible-options button { width: 65px; height: 65px; color: white; border: 2px solid white; border-radius: 15px; background: linear-gradient(#ff8fb0, #ff3670); font: 700 37px Arial; box-shadow: 0 3px 0 #d82653; }
+.accessible-options button:nth-child(2) { background: linear-gradient(#4fdcff, #00b4ec); box-shadow: 0 3px 0 #008bb4; }
+.accessible-options button:nth-child(3) { background: linear-gradient(#ad92ff, #744cff); box-shadow: 0 3px 0 #5437c5; }
+.celebration { padding: 30px 35px 45px; margin: -24px -38px -30px; min-height: 680px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.celebration-avatar { font-size: 160px; }
+.celebration h1 { font-size: 47px; margin: 20px 0 8px; background: #ffffffef; border-radius: 22px; padding: 15px 30px; }
+.celebration p { background: #ffffffdc; border-radius: 15px; padding: 10px 25px; margin-bottom: 15px; font-weight: 600; }
+.reward-stars { color: #ffd01a; font-size: 82px; letter-spacing: 9px; text-shadow: 0 5px 0 #e99700, 1px -2px 0 #fff; margin-bottom: 30px; }
+.celebration .button { min-width: 300px; }

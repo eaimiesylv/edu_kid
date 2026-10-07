@@ -1,0 +1,219 @@
+{
+  "curriculum": [
+    {
+      "id": "letter-a",
+      "value": "A",
+      "type": "letter",
+      "subject": "english",
+      "level": "letters",
+      "capabilities": [
+        "exposure",
+        "hearing",
+        "guided_writing",
+        "independent_writing",
+        "recognition",
+        "discrimination",
+        "retention"
+      ],
+      "strokes": [
+        [
+          {
+            "x": 0.2,
+            "y": 0.85
+          },
+          {
+            "x": 0.5,
+            "y": 0.15
+          }
+        ],
+        [
+          {
+            "x": 0.5,
+            "y": 0.15
+          },
+          {
+            "x": 0.8,
+            "y": 0.85
+          }
+        ],
+        [
+          {
+            "x": 0.34,
+            "y": 0.55
+          },
+          {
+            "x": 0.66,
+            "y": 0.55
+          }
+        ]
+      ],
+      "narration": {
+        "see": "This is A.",
+        "hear": "A. Say A.",
+        "watch": "Watch how we write A.",
+        "guided": "Follow the path to write A.",
+        "trace": "Trace A.",
+        "write": "Write A.",
+        "recognise": "Touch A.",
+        "review": "Can you find A?"
+      }
+    },
+    {
+      "id": "letter-b",
+      "value": "B",
+      "type": "letter",
+      "subject": "english",
+      "level": "letters",
+      "capabilities": [
+        "exposure",
+        "hearing",
+        "guided_writing",
+        "independent_writing",
+        "recognition",
+        "discrimination",
+        "retention"
+      ],
+      "strokes": [
+        [
+          {
+            "x": 0.3,
+            "y": 0.15
+          },
+          {
+            "x": 0.3,
+            "y": 0.85
+          }
+        ],
+        [
+          {
+            "x": 0.3,
+            "y": 0.15
+          },
+          {
+            "x": 0.6,
+            "y": 0.15
+          },
+          {
+            "x": 0.75,
+            "y": 0.28
+          },
+          {
+            "x": 0.6,
+            "y": 0.5
+          },
+          {
+            "x": 0.3,
+            "y": 0.5
+          }
+        ],
+        [
+          {
+            "x": 0.3,
+            "y": 0.5
+          },
+          {
+            "x": 0.65,
+            "y": 0.5
+          },
+          {
+            "x": 0.78,
+            "y": 0.67
+          },
+          {
+            "x": 0.65,
+            "y": 0.85
+          },
+          {
+            "x": 0.3,
+            "y": 0.85
+          }
+        ]
+      ],
+      "narration": {
+        "see": "This is B.",
+        "hear": "B. Say B.",
+        "watch": "Watch how we write B.",
+        "guided": "Follow the path to write B.",
+        "trace": "Trace B.",
+        "write": "Write B.",
+        "recognise": "Touch B.",
+        "review": "Can you find B?"
+      }
+    },
+    {
+      "id": "letter-c",
+      "value": "C",
+      "type": "letter",
+      "subject": "english",
+      "level": "letters",
+      "capabilities": [
+        "exposure",
+        "hearing",
+        "guided_writing",
+        "independent_writing",
+        "recognition",
+        "discrimination",
+        "retention"
+      ],
+      "strokes": [
+        [
+          {
+            "x": 0.78,
+            "y": 0.22
+          },
+          {
+            "x": 0.6,
+            "y": 0.13
+          },
+          {
+            "x": 0.4,
+            "y": 0.15
+          },
+          {
+            "x": 0.23,
+            "y": 0.3
+          },
+          {
+            "x": 0.2,
+            "y": 0.5
+          },
+          {
+            "x": 0.23,
+            "y": 0.7
+          },
+          {
+            "x": 0.4,
+            "y": 0.85
+          },
+          {
+            "x": 0.6,
+            "y": 0.87
+          },
+          {
+            "x": 0.78,
+            "y": 0.78
+          }
+        ]
+      ],
+      "narration": {
+        "see": "This is C.",
+        "hear": "C. Say C.",
+        "watch": "Watch how we write C.",
+        "guided": "Follow the path to write C.",
+        "trace": "Trace C.",
+        "write": "Write C.",
+        "recognise": "Touch C.",
+        "review": "Can you find C?"
+      }
+    }
+  ],
+  "skills": [
+    "exposure",
+    "hearing",
+    "guided_writing",
+    "independent_writing",
+    "recognition",
+    "discrimination",
+    "retention"
+  ]
+}
