@@ -9,16 +9,21 @@ export function responsiveLayout(width: number, phase: string, choices: string[]
   const tracing = phase === 'trace' || phase === 'trace-demo'
   const letters = choices.map((letter, index): LetterPose => {
     if (!recognition) {
-      if (letter === 'A') return { position: board ? [0, 1.8, -1.6] : [0, -.75, .6], scale: board ? 1.7 : 1.5, opacity: 1 }
+      if (choices.length === 1 || letter === 'A') return { position: board ? [0, 1.8, -1.6] : [0, -.75, .6], scale: board ? 1.7 : 1.5, opacity: 1 }
       return { position: [letter === 'B' ? -3.2 : 3.2, -1.4, 0], scale: .72, opacity: ['welcome', 'see'].includes(phase) ? .22 : 0 }
     }
-    const layout = exercise?.layout ?? 'table'
-    if (layout === 'board') return { position: [(index - 1) * 1.72, 1.8, -1.6], scale: .72, opacity: 1 }
-    if (mobile || layout === 'mixed') {
-      const positions: Position[] = [[-1.65, -1.2, .6], [1.65, -1.2, .6], [0, .65, .35]]
-      return { position: positions[index]!, scale: .9, opacity: 1 }
+    if (exercise?.id !== 'recognition-touch' && phase !== 'recognition-touch') {
+      const layout = exercise?.layout ?? 'table'
+      if (layout === 'board') return { position: [(index - 1) * 1.72, 1.8, -1.6], scale: .72, opacity: 1 }
+      if (mobile || layout === 'mixed') {
+        const positions: Position[] = [[-1.65, -1.2, .6], [1.65, -1.2, .6], [0, .65, .35]]
+        return { position: positions[index]!, scale: .9, opacity: 1 }
+      }
+      return { position: [(index - 1) * 2.8, layout === 'staggered' && index !== 1 ? -.5 : -1.1, .6], scale: .95, opacity: 1 }
     }
-    return { position: [(index - 1) * 2.8, layout === 'staggered' && index !== 1 ? -.5 : -1.1, .6], scale: .95, opacity: 1 }
+    const columns = choices.length > 3 ? 3 : choices.length
+    return { position: [(index % columns - (columns - 1) / 2) * (mobile ? 1.8 : 2.8), choices.length > 3 ? .6 - Math.floor(index / columns) * 2 : -.75, .6], scale: choices.length > 3 ? .72 : mobile ? .95 : 1.15, opacity: 1 }
+
   })
   return { mobile, board, letters,
     actors: tracing

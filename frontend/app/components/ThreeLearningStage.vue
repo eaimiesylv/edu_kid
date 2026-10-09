@@ -4,7 +4,7 @@ import { LetterController, CharacterController, CameraDirector, InteractionManag
 import { responsiveLayout } from '../classroom/responsiveLayout'
 import { abortError, check } from '../classroom/lessonStateMachine'
 import type { RecognitionExercise, SceneAction } from '../classroom/lessonConfig'
-const props = defineProps<{ phase: string; choices: string[]; exercise?: RecognitionExercise; enabled: boolean; hinted: boolean; paused: boolean }>()
+const props = defineProps<{ hideCharacters?: boolean; selected?: string; target?: string; demonstrating?: boolean; phase: string; choices: string[]; exercise?: RecognitionExercise; enabled: boolean; hinted: boolean; paused: boolean }>()
 const emit = defineEmits<{ select: [letter: string]; ready: []; boardLayout: [bounds: { left: number; top: number; width: number; height: number }] }>()
 const host = ref<HTMLDivElement>()
 const sceneError = ref('')
@@ -195,13 +195,35 @@ function createTable() {
 }
 
 function makeLetter(letter: string, index: number): ControlledLetter {
+  const glyph = letter.split(':')[0]!
   const color = props.exercise?.colors[index] ?? colors[letter] ?? 0x159be9
   const material = new THREE.MeshPhysicalMaterial({ color, roughness: .35, clearcoat: .3, clearcoatRoughness: .3 })
   material.userData.baseColor = color
-  const geometry = new THREE.ExtrudeGeometry(createLetterShape(letter), { depth: .35, bevelEnabled: true, bevelSegments: 3, bevelSize: .06, bevelThickness: .06, curveSegments: 16 })
+  const geometry = new THREE.ExtrudeGeometry(createLetterShape(glyph), { depth: .35, bevelEnabled: true, bevelSegments: 3, bevelSize: .06, bevelThickness: .06, curveSegments: 16 })
   geometry.computeVertexNormals()
   const mesh = new THREE.Mesh(geometry, material); mesh.castShadow = true; mesh.receiveShadow = true
-  const group = new THREE.Group(); group.add(mesh); group.position.set(0, -.75, .6); group.scale.setScalar(.9)
+  const group = new THREE.Group();
+  if (glyph === 'car') {
+    geometry.dispose()
+    const body = new THREE.Mesh(new THREE.BoxGeometry(1.5, .5, .65), material)
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(.8, .45, .6), material)
+    roof.position.y = .45; group.add(body, roof)
+    for (const x of [-.5, .5]) for (const z of [-.37, .37]) {
+      const wheel = new THREE.Mesh(new THREE.CylinderGeometry(.23, .23, .13, 12), new THREE.MeshStandardMaterial({ color: 0x39434b }))
+      wheel.rotation.x = Math.PI / 2; wheel.position.set(x, -.25, z); group.add(wheel)
+    }
+  } else if (!['A', 'B', 'C'].includes(glyph) || props.phase === 'recognition-touch') {
+    geometry.dispose()
+    const canvas = document.createElement('canvas'); canvas.width = 256; canvas.height = 256
+    const ctx = canvas.getContext('2d')!
+    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 220px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+    ctx.fillText(glyph, 128, 140)
+    const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace
+    material.map = texture; material.alphaTest = .05; material.transparent = true; material.needsUpdate = true
+    const face = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 2), material)
+    face.userData.texture = texture; group.add(face)
+  } else group.add(mesh)
+  group.position.set(0, -.75, .6); group.scale.setScalar(.9)
   const collider = new THREE.Mesh(new THREE.BoxGeometry(1.85, 2, .55), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, colorWrite: false }))
   collider.position.z = .18; collider.userData.letter = letter; group.add(collider)
   scene!.add(group)
@@ -210,7 +232,8 @@ function makeLetter(letter: string, index: number): ControlledLetter {
 function clearLetters() {
   letters.forEach(letter => {
     scene?.remove(letter.group)
-    letter.group.traverse(object => { if (object instanceof THREE.Mesh) { object.geometry.dispose(); (object.material as THREE.Material).dispose() } })
+    letter.material.dispose()
+    letter.group.traverse(object => { if (object instanceof THREE.Mesh) { object.geometry.dispose(); object.userData.texture?.dispose(); (object.material as THREE.Material).dispose() } })
   }); letters = []
 }
 function rebuildLetters() {
@@ -285,7 +308,7 @@ function createRenderer() {
   renderer = new THREE.WebGLRenderer({ antialias: true })
   renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFShadowMap
-  renderer.domElement.setAttribute('aria-label', 'Classroom with Teacher Sunny, pupils Milo and Lulu, and selectable three-dimensional letters.')
+  renderer.domElement.setAttribute('aria-label', 'Interactive classroom with selectable three-dimensional letters.')
   renderer.domElement.setAttribute('role', 'img'); renderer.domElement.tabIndex = 0
   renderer.domElement.addEventListener('pointerdown', onPointerDown); renderer.domElement.addEventListener('keydown', onKeyDown)
   host.value.appendChild(renderer.domElement)
@@ -308,8 +331,8 @@ function startAnimation() {
     const delta = props.paused ? 0 : Math.min(.05, (now - previous) / 1000); previous = now; logicalTime += delta * 1000
     const duration = activeAction ? actionDuration[activeAction] : 1
     const progress = Math.min(1, (logicalTime - actionStarted) / duration)
-    letterController?.update(delta, reduced, props.hinted, props.phase)
-    characterController?.update(delta, logicalTime / 1000, props.phase, letters.find(letter => letter.letter === 'A')?.group, activeAction, progress, reduced, props.hinted)
+    letterController?.update(delta, reduced, props.hinted, props.phase, props.target, props.selected)
+    characterController?.update(delta, logicalTime / 1000, props.phase, letters.find(letter => letter.letter.split(':')[0] === (props.target ?? 'A'))?.group, activeAction, progress, reduced, props.hinted)
     cameraDirector?.update(delta, reduced)
     renderer.render(scene, camera)
     if (now - lastProjection > 90) { publishBounds(); lastProjection = now }
@@ -323,7 +346,7 @@ function init() {
     scene = new THREE.Scene(); scene.background = new THREE.Color(0xffe9c5)
     camera = new THREE.PerspectiveCamera(38, 1, .1, 100)
     createRenderer(); createLighting(); createClassroom(); createTable(); createStar()
-    characters = [makeCharacter(-4.45, 0xb9783d, 0x3ba8e5), makeCharacter(-3.8, 0xa64c2c, 0x73c756), makeCharacter(3.8, 0xd9ad74, 0xf18bae)]
+    characters = props.hideCharacters ? [] : [makeCharacter(-4.45, 0xb9783d, 0x3ba8e5), makeCharacter(-3.8, 0xa64c2c, 0x73c756), makeCharacter(3.8, 0xd9ad74, 0xf18bae)]
     characterController = new CharacterController(characters); cameraDirector = new CameraDirector(camera)
     interactions = new InteractionManager(renderer!.domElement, camera)
     reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -347,11 +370,15 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <div ref="host" class="three-stage">
+    <span v-if="demonstrating" v-for="anchor in anchors.filter(item => item.visible && item.letter.split(':')[0] === target && (!selected || !choices.includes(selected) || item.letter === selected)).slice(0, 1)" :key="'demo-' + anchor.letter" class="demo-hand" aria-hidden="true" :style="{ left: `${anchor.left + anchor.width * .6}px`, top: `${anchor.top + anchor.height * .6}px` }">&#9757;</span>
     <p v-if="sceneError" role="alert" class="scene-error">{{ sceneError }}</p>
-    <button v-for="anchor in anchors.filter(item => item.visible)" :key="anchor.letter" class="letter-hit-target" :aria-label="`Touch letter ${anchor.letter}`" :disabled="!enabled || paused" :style="{ left: `${anchor.left}px`, top: `${anchor.top}px`, width: `${anchor.width}px`, height: `${anchor.height}px` }" @click="emit('select', anchor.letter)"><span class="sr-only">{{ anchor.letter }}</span></button>
+    <button v-for="anchor in anchors.filter(item => item.visible)" :key="anchor.letter" class="letter-hit-target" :aria-label="`Touch ${anchor.letter === 'car' ? 'car' : 'letter ' + anchor.letter.split(':')[0]}`" :disabled="!enabled || paused" :style="{ left: `${anchor.left}px`, top: `${anchor.top}px`, width: `${anchor.width}px`, height: `${anchor.height}px` }" @click="emit('select', anchor.letter)"><span class="sr-only">{{ anchor.letter }}</span></button>
   </div>
 </template>
 <style scoped>
+.demo-hand { position:absolute; z-index:2; font-size:48px; pointer-events:none; animation:demo-tap 1.5s ease-in-out 1; }
+@keyframes demo-tap { 50% { transform:translateY(-12px) scale(.9); } }
+@media(prefers-reduced-motion:reduce) { .demo-hand { animation:none; } }
 .three-stage { position:absolute; inset:0; overflow:hidden; touch-action:manipulation; }
 .three-stage :deep(canvas) { display:block; width:100%; height:100%; outline:none; }
 .letter-hit-target { position:absolute; padding:0; margin:0; border:0; background:transparent; border-radius:18px; cursor:pointer; touch-action:manipulation; }

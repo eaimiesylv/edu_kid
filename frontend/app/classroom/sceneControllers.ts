@@ -26,7 +26,7 @@ export class LetterController {
   }
   play(action: SceneAction) { this.action = action; this.actionElapsed = 0 }
   cancel() { this.action = undefined; this.actionElapsed = 0 }
-  update(delta: number, reduced: boolean, hinted: boolean, phase: string) {
+  update(delta: number, reduced: boolean, hinted: boolean, phase: string, target = 'A', selected?: string) {
     this.elapsed = Math.min(1, this.elapsed + delta / (reduced ? .08 : 1.25))
     this.actionElapsed += delta * 1000
     const t = THREE.MathUtils.smoothstep(this.elapsed, 0, 1)
@@ -40,12 +40,12 @@ export class LetterController {
       letter.group.scale.setScalar(size)
       letter.group.rotation.set(0, 0, 0)
       if (!reduced && ['shape', 'touch', 'trace-demo'].includes(phase)) letter.group.position.y += Math.sin(this.elapsed * Math.PI) * .25
-      if (letter.letter === 'A' && progress < 1 && !reduced) {
+      if (progress < 1 && !reduced && (!selected || selected === letter.letter)) {
         if (this.action === 'jump' || this.action?.startsWith('pupil-')) letter.group.position.y += Math.sin(progress * Math.PI) * .32
         if (this.action === 'push') letter.group.position.x += THREE.MathUtils.smoothstep(progress, 0, 1) * 1.65
       }
       if (this.action === 'push' && letter.letter === 'A' && progress === 1 && !reduced) letter.group.position.x += 1.65
-      letter.material.emissive.setHex(hinted && letter.letter === 'A' ? 0xffdeb2 : 0x000000)
+      letter.material.emissive.setHex(hinted && letter.letter.split(':')[0] === target ? 0xffdeb2 : 0x000000)
       letter.material.emissiveIntensity = hinted ? .16 : 0
     }
   }

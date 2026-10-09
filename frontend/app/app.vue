@@ -1,3 +1,3 @@
 <template>
-  <BrightStepsLearning />
+  <TouchAlphabetLesson />
 </template>

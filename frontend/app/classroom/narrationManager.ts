@@ -26,7 +26,7 @@ export class BrowserNarrationDriver implements NarrationDriver {
     if (typeof window === 'undefined') return
     try { this.context ??= new AudioContext(); void this.context.resume().catch(() => {}) } catch { /* Speech can still work without Web Audio. */ }
     // Audio element is primed inside the user's Start gesture, not during preload.
-    for (const audio of this.assets.values()) { audio.muted = true; void audio.play().then(() => { audio.pause(); audio.currentTime = 0; audio.muted = false }).catch(() => { audio.muted = false }); break }
+    for (const asset of this.assets.values()) { const audio = asset.cloneNode(true) as HTMLAudioElement; audio.muted = true; void audio.play().then(() => { audio.pause(); audio.removeAttribute('src'); audio.load() }).catch(() => {}); break }
   }
   async preload(clips: VoiceClip[]) {
     await Promise.all(clips.filter(clip => clip.available).map(clip => new Promise<void>(resolve => {
