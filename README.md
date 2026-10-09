@@ -1,37 +1,41 @@
 # Bright Steps
 
-A working A–C structured-learning MVP with a Nuxt frontend and Laravel API. Completed and outstanding work is tracked in [WORK_PLAN.md](WORK_PLAN.md).
+Bright Steps opens as a child-first, frontend-only uppercase Letter A classroom. The existing Three.js renderer and three characters are retained. A is central and twice as large as the dimmed distractors during introduction, then moves to a clean board. The teacher models the letter name, allows spoken imitation (not assessed), and both pupils demonstrate touching A. The child taps to make A jump and move to a star without reading an action toolbar. A moving guide demonstrates the three strokes, and ordered tracing checks coverage, direction and precision with forgiving tolerances. Five seeded recognition contexts shuffle positions and colours independently with equal-sized choices, then a touch recall and brief celebration finish the lesson.
+
+Speech, animations and input run through a declarative, cancellable state machine. A large speaker replays narration (or the active tracing stroke); mute, speed, volume, captions, pause, restart and phase revisits are available to grown-ups. Progress and attempts are saved locally with phase-level resume; a tracing phase restarts its three strokes when resumed. Lesson completion is practice evidence, not a claim of mastery or verified pronunciation. No live backend is required.
+
+The earlier multi-letter application and Laravel API remain in the repository, but they are not required or used by this prototype. Completed and outstanding platform work is tracked in [WORK_PLAN.md](WORK_PLAN.md).
 
 ## Run locally on this Windows workspace
-
-Dependencies and a portable PHP 8.4 runtime are already installed. In a terminal at the project root:
-
-```powershell
-.\scripts\start-backend.ps1
-```
-
-In a second terminal:
 
 ```powershell
 cd frontend
 npm.cmd run dev
 ```
 
-Open http://127.0.0.1:3000. Create a parent account, create a child, select a letter range and begin. No demo password or production account is seeded. If these ports are already occupied, use `start-backend.ps1 -Port 8001`, set `NUXT_PUBLIC_API_BASE=http://127.0.0.1:8001/api` in `frontend/.env` and choose another frontend port. Add that frontend origin to `FRONTEND_ORIGINS` in `backend/.env`.
+Open http://127.0.0.1:3000 and choose **Start**. No backend, account, database or setup flow is required.
 
-Local startup uses the settings in `backend/.env`: MySQL at `127.0.0.1:3306`, database `result`, username `root`, password `root`. The portable PHP runtime has PDO MySQL enabled. The runtime in `.tools/` is a local convenience and is excluded from version control.
+The prototype does not read backend environment variables or connect to a database. The optional PHP runtime in `.tools/` is only needed for legacy backend work and is excluded from version control.
 
-## Local MySQL
+## Optional legacy backend
 
 ```powershell
 .\scripts\start-backend.ps1
 ```
 
-The MySQL service must be running locally and database `result` must exist. Docker is not required. Existing migrations and curriculum seeding have been verified against this database. The launcher runs outstanding migrations and the idempotent curriculum seeder without resetting existing tables.
+This optional setup expects the local MySQL service and database described in `backend/.env`. It is not needed for the Letter A prototype.
 
 ## Fresh checkout
 
-Install Node 22+ (Node 24 was used), PHP 8.4+ with curl, fileinfo, mbstring, openssl, PDO MySQL/SQLite and zip, and Composer. Then:
+For the frontend-only prototype, install Node 22+ and run:
+
+```powershell
+cd frontend
+npm.cmd ci
+npm.cmd run dev
+```
+
+To work on the legacy backend as well, install PHP 8.4+ with curl, fileinfo, mbstring, openssl, PDO MySQL/SQLite and zip, and Composer. Then:
 
 ```powershell
 cd backend
@@ -45,7 +49,7 @@ npm.cmd ci
 
 The Nuxt setup follows the [Nuxt installation documentation](https://nuxt.com/docs/4.x/getting-started/installation). PHP requirements are described in the [Laravel release documentation](https://github.com/laravel/docs/blob/13.x/releases.md). Runtime versions are pinned by `package-lock.json` and `composer.lock`.
 
-## Production preview and offline testing
+## Production preview
 
 ```powershell
 cd frontend
@@ -53,12 +57,34 @@ npm.cmd run build
 node .output/server/index.mjs
 ```
 
-The production build caches the app shell, letter content, fonts, icons and Phaser bundle. Visit it online once before testing offline reload. Development mode intentionally does not register a service worker. HTTPS is required outside localhost. Narration uses the browser's speech synthesis; installed local voices determine offline voice availability. Recorded audio is a remaining release task.
+Validate this classroom independently of the legacy account-based tests:
+
+```powershell
+cd frontend
+npm.cmd run typecheck
+npm.cmd test
+npm.cmd run build
+npx.cmd playwright test --config playwright.classroom.config.ts
+```
+
+The prototype is online-first and does not register a service worker or cache lesson assets for offline use. Local progress storage does not make it an offline/PWA app.
+
+## Replace the temporary voice
+
+No professionally recorded clips are included. Browser TTS is a temporary fallback with device-dependent quality and pronunciation. Add the reviewed recordings named in `frontend/public/audio/letter-a/manifest.json` and mark each corresponding `available` value `true`. The manifest contains the exact speech script and supports future human recordings. Failed/missing recordings fall back to browser speech; if speech is unavailable, optional captions turn on and visual interaction continues.
+
+See [the audio asset and QA checklist](frontend/app/classroom/audioChecklist.md). Phonics, real pronunciation assessment and photo-derived avatars are deferred. The letter-name clip must say /eɪ/; no short-vowel /æ/ clip is played or synthesized in this lesson. Photographs are neither read nor uploaded. Audio quality and real iOS/Android speaker/unlock behavior still need human/device QA.
+
+Browser tests use a deterministic speech driver to validate sequencing, cancellation and absence of overlap, not audio quality. They also exercise failed-asset fallback and a device with no speech. Legacy account/PWA browser tests in `adventure.spec.ts` and `pwa.spec.ts` target the earlier application and are retained separately; use the classroom config for this frontend. Existing domain tests still run with `npm.cmd test`. There is currently no configured lint command or ESLint dependency.
 
 ## Structure
 
 | Location | Responsibility |
 | --- | --- |
+| `frontend/app/components/BrightStepsLearning.vue` | Child-first orchestration, audio controls, gated parent menu and saved progress |
+| `frontend/app/components/ThreeLearningStage.vue` | Three.js classroom, animated teacher/classmates, table-to-board letter motion and tap raycasting |
+| `frontend/app/classroom` | Declarative lesson, state machine, narration, responsive layout, scene controllers, tracing/recognition validation and local progress |
+| `frontend/app/components/TracingActivity.vue` | Board-aligned SVG demonstration and ordered finger tracing |
 | `frontend/app/domain` | Curriculum, evidence types, mastery rules, revision and activity selection |
 | `frontend/app/services` | Canvas rendering, atomic IndexedDB storage and session transitions |
 | `frontend/app/composables` | Authentication, narration, learning state and sync orchestration |
@@ -70,8 +96,9 @@ The production build caches the app shell, letter content, fonts, icons and Phas
 
 No learning component is named for a particular letter. A–C is the content boundary. Additional subjects declare capabilities; activities must respect those capabilities. New subject renderers and curricula are extension work, not shipped content.
 
-## Learning behavior
+## Legacy learning behavior
 
+The following multi-letter learning behavior describes the earlier application, not the current standalone Letter A prototype:
 - Teach before testing: see, hear, watch, guided writing, reduced-support tracing and independent writing.
 - Keep exposure, hearing, guided/independent writing, recognition, discrimination and retention separate.
 - Assisted correct answers carry less weight and cannot count as independent successes.
@@ -84,13 +111,14 @@ No learning component is named for a particular letter. A–C is the content bou
 
 Writing evaluation checks path coverage and precision against curriculum strokes. It is a prototype geometric scorer, not a handwriting-recognition model. Educational thresholds and writing tolerances need supervised validation before release.
 
-## Offline sync
+## Legacy offline sync
 
+Offline synchronization belongs to the previous account-based application and is not used by the current prototype.
 Attempts and their updated local snapshot are committed atomically to IndexedDB. Reconnection sends batches of up to 100 attempts. The API authorizes ownership, validates evidence and acknowledges identifiers. Retried identifiers do not double-count mastery or rewards. Server scores are rebuilt from chronologically sorted evidence, including delayed offline uploads. Queue entries are removed only after acknowledgement.
 
 Sign-in tokens are hashed in the database, expire after seven days and are kept in session storage in the browser. Existing device learning remains available offline after the tab closes; parents sign in again for server access. Concurrent configuration changes across multiple devices currently use the most recent sync; explicit conflict resolution remains a release task.
 
-## API
+## Legacy API
 
 | Method | Path | Purpose |
 | --- | --- | --- |

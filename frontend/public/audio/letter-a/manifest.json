@@ -1,0 +1,127 @@
+{
+  "hello": {
+    "text": "Hello! Let's learn a new letter.",
+    "src": "/audio/letter-a/hello.mp3",
+    "available": false
+  },
+  "introduce": {
+    "text": "Look! This is A.",
+    "src": "/audio/letter-a/introduce.mp3",
+    "available": false
+  },
+  "name": {
+    "text": "A.",
+    "src": "/audio/letter-a/name.mp3",
+    "available": false
+  },
+  "look": {
+    "text": "Look at A!",
+    "src": "/audio/letter-a/look.mp3",
+    "available": false
+  },
+  "imitate": {
+    "text": "Can you say A?",
+    "src": "/audio/letter-a/imitate.mp3",
+    "available": false
+  },
+  "pupilOne": {
+    "text": "Watch our friend touch A.",
+    "src": "/audio/letter-a/pupilOne.mp3",
+    "available": false
+  },
+  "pupilTwo": {
+    "text": "Now our other friend.",
+    "src": "/audio/letter-a/pupilTwo.mp3",
+    "available": false
+  },
+  "yourTurn": {
+    "text": "Your turn. Touch A.",
+    "src": "/audio/letter-a/yourTurn.mp3",
+    "available": false
+  },
+  "jump": {
+    "text": "Touch A to make it jump.",
+    "src": "/audio/letter-a/jump.mp3",
+    "available": false
+  },
+  "move": {
+    "text": "Touch A to move it to the star.",
+    "src": "/audio/letter-a/move.mp3",
+    "available": false
+  },
+  "draw": {
+    "text": "Let's draw A together.",
+    "src": "/audio/letter-a/draw.mp3",
+    "available": false
+  },
+  "downOne": {
+    "text": "Down.",
+    "src": "/audio/letter-a/downOne.mp3",
+    "available": false
+  },
+  "downTwo": {
+    "text": "Down.",
+    "src": "/audio/letter-a/downTwo.mp3",
+    "available": false
+  },
+  "across": {
+    "text": "Across.",
+    "src": "/audio/letter-a/across.mp3",
+    "available": false
+  },
+  "trace": {
+    "text": "Your turn. Follow the dot.",
+    "src": "/audio/letter-a/trace.mp3",
+    "available": false
+  },
+  "traceDown": {
+    "text": "Start at the top. Draw down to the dot.",
+    "src": "/audio/letter-a/traceDown.mp3",
+    "available": false
+  },
+  "traceAcross": {
+    "text": "Draw across to the dot.",
+    "src": "/audio/letter-a/traceAcross.mp3",
+    "available": false
+  },
+  "traceRetry": {
+    "text": "A lovely try. Follow the path from the big dot.",
+    "src": "/audio/letter-a/traceRetry.mp3",
+    "available": false
+  },
+  "find": {
+    "text": "Find A!",
+    "src": "/audio/letter-a/find.mp3",
+    "available": false
+  },
+  "listen": {
+    "text": "Listen. A. Touch the letter you hear.",
+    "src": "/audio/letter-a/listen.mp3",
+    "available": false
+  },
+  "found": {
+    "text": "You found A!",
+    "src": "/audio/letter-a/found.mp3",
+    "available": false
+  },
+  "retry": {
+    "text": "Let's try again. Look carefully.",
+    "src": "/audio/letter-a/retry.mp3",
+    "available": false
+  },
+  "hint": {
+    "text": "Here is A. Look at its shape.",
+    "src": "/audio/letter-a/hint.mp3",
+    "available": false
+  },
+  "recall": {
+    "text": "What letter is this? Touch A.",
+    "src": "/audio/letter-a/recall.mp3",
+    "available": false
+  },
+  "reward": {
+    "text": "Great learning today!",
+    "src": "/audio/letter-a/reward.mp3",
+    "available": false
+  }
+}
